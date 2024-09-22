@@ -6,7 +6,8 @@
     <title>Buku</title>
 </head>
 <body>
-    <table>
+    <a href="{{ route('buku.create') }}" class="btn btn-primary float-end">Tambah Buku</a>
+    <table class="table table-stripped">
         <thead>
             <tr>
                 <th>id</th>
@@ -25,6 +26,19 @@
                 <td>{{ $buku->penulis }}</td>
                 <td>{{ "Rp. ".number_format($buku->harga, 2, ',', '.') }}</td>
                 <td>{{ $buku->tgl_terbit }}</td>
+                <td>
+                    <form action="{{ route('buku.destroy', $buku->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="return confirm('Yakin mau dihapus?')" type="submit" class="btn btn-danger">Hapus</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ route('buku.edit', $buku->id) }}" method="get">
+                        @csrf
+                        <button>Edit</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
